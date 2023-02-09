@@ -37,15 +37,30 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         CleverTap.setDebugLevel(CleverTapLogLevel.debug.rawValue)
 }
 ```
-* Similarly import CleverTapSDK in ViewController class file, and call following method to identify users
+* Similarly import CleverTapSDK in ViewController class file, and call following methods to identify users and to raise events
 
 ```
+// onUserLogin to identify users
 let profile: Dictionary<String, Any> = [
             "Name": "Test User",
             "Email": "test.user@gmail.com",
             "Plan type": "Silver",
             "Favorite Food": "Pizza"
         ]
-        CleverTap.sharedInstance()?.onUserLogin(profile)
+ CleverTap.sharedInstance()?.onUserLogin(profile)
+        
+// recordEvent to record an event with name
+CleverTap.sharedInstance()?.recordEvent("RecordButtonForTVOS_Pressed")
+
+// recordEventwithProps for recording an event with name and properties
+let props = [
+            "Product name": "Apple TV",
+            "Category": "Digital",
+            "Price": 167.00,
+            "Date": NSDate()
+        ] as [String : Any]
+
+CleverTap.sharedInstance()?.recordEvent("RecordWithPropsButtonForTVOS_Pressed", withProps: props)
+
 ```
 
